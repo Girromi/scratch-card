@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>刮刮乐</title>
+   <style type="text/css">
+      #c1 {
+         border: 1px solid blue;
+         position: absolute;
+      }
+
+      #c2 {
+         border: 1px solid red;
+         ;
+      }
+
+      body {
+         position: relative;
+      }
+   </style>
+</head>
+
+<body>
+   <canvas id="c1" width="960" height="1440"></canvas>
+
+   <canvas id="c2" width="960" height="1440"></canvas>
+</body>
+<script type="text/javascript">
+   var c1 = document.getElementById("c1");
+   var c2 = document.getElementById("c2");
+
+   var ctx1 = c1.getContext("2d");
+   var ctx2 = c2.getContext("2d");
+
+   var imgs = new Image();
+   imgs.src = 'img/muscularman.png';
+
+   imgs.onload = function () {
+      ctx2.drawImage(this, 0, 0, 960, 1440)
+   }
+
+   ctx1.fillStyle = "lightgray";
+   ctx1.fillRect(0, 0, 960, 1440);
+
+   ctx1.font = "normal 80px 仿宋";
+   ctx1.strokeText("请刮开！", 320, 750);
+
+   c1.onmousedown = function (ev) {
+      c1.onmousemove = function (e) {
+         console.log(e);
+
+         var w = 150;
+         var h = 150;
+         var x = e.pageX - c1.offsetLeft - w / 2;
+         var y = e.pageY - c1.offsetTop - h / 2;
+         ctx1.clearRect(x, y, w, h);
+      }
+   }
+
+   c1.onmouseup = function (ev) {
+      c1.onmousemove = null;
+   }
+</script>
+
+</html>
